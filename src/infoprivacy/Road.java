@@ -8,6 +8,24 @@ package infoprivacy;
  */
 public class Road
 {
+	private static int roadcount = 0; // the number of roads created
+	
+	public static Road getInstance(int fromnode, int tonode)
+	{
+		Intersection from = Intersection.getInstance(fromnode);
+		
+		for(Road r : from.getRoads())
+		{
+			if(r.m_toNode == tonode)
+			{
+				return r;
+			}
+		}
+		
+		roadcount++;
+		return new Road(fromnode, tonode);
+	}
+	
 	public static final String UNKNOWN = "unknown";
 	public static final String MOTORWAY = "motorway";
 	public static final String MOTORWAY_LINK = "motorway_link";
@@ -26,6 +44,7 @@ public class Road
 	
 	private final int m_fromNode;
 	private final int m_toNode;
+	private float m_length;
 		
 	private Road(int fromNode, int toNode)
 	{
@@ -48,6 +67,12 @@ public class Road
 	public String getRoadType()
 	{
 		return roadType;
+	}
+	
+	@Override
+	public String toString()
+	{
+		return "[Road from=" + m_fromNode + " to=" + m_toNode + " type=" + roadType + "]";
 	}
 	
 	public void setRoadType(String roadType)
@@ -95,5 +120,18 @@ public class Road
 		default:
 			roadType = UNKNOWN;
 		} 
+	}
+
+	public void setLength(float length) {
+		m_length = length;
+	}
+	
+	public float getLength()
+	{
+		return m_length;
+	}
+
+	public static int count() {
+		return roadcount;
 	}
 }
