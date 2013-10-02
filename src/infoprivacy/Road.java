@@ -126,6 +126,10 @@ public class Road
 		m_length = length;
 	}
 	
+	/**
+	 * Returns the road length in miles
+	 * @return
+	 */
 	public float getLength()
 	{
 		return m_length;
