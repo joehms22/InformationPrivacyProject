@@ -2,10 +2,11 @@ package infoprivacy;
 
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.LinkedList;
 
 public class Main {
 
-	public static void main(String[] args) throws IOException
+	public static void main(String[] args) throws IOException, InterruptedException
 	{
 		// Load the road network
 		new RoadNetworkReader(Paths.get("denver.roadnetwork"));
@@ -14,6 +15,17 @@ public class Main {
 		System.out.println("Number of Roads: " + Road.count());
 		System.out.println("Number of Intersections: " + Intersection.count());
 		
-		new RoadDFS(150, Intersection.getInstance(100000));
+		for(LinkedList<Intersection> path : new RoadDFS(150, Intersection.getInstance(100000)))
+		{
+			System.out.println("------------------------------------------------------");
+			
+			StringBuilder sb = new StringBuilder();
+			for(Intersection i : path)
+			{
+				sb.append(i);
+			}
+			
+			System.out.println(sb);
+		}
 	}
 }

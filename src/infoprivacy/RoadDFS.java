@@ -1,5 +1,6 @@
 package infoprivacy;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 
 import net.josephlewis.java.collections.DefaultMap;
@@ -12,7 +13,7 @@ import net.josephlewis.java.collections.DefaultMap.ValueGenerator;
  * @author Joseph Lewis <joehms22@gmail.com>
  *
  */
-public class RoadDFS 
+public class RoadDFS implements Iterable<LinkedList<Intersection>>
 {
 	enum NODESTATE
 	{
@@ -31,6 +32,7 @@ public class RoadDFS
 	private final double m_neededDistance;
 	private final DefaultMap<Intersection, NODESTATE> m_states;
 	private final DefaultMap<Road, ROADSTATE> m_roadStates;
+	private final LinkedList<LinkedList<Intersection>> m_pathsFound = new LinkedList<>();
 	
 	public RoadDFS(double distance, Intersection startNode)
 	{
@@ -52,11 +54,23 @@ public class RoadDFS
 		dfs(distance, startNode, new LinkedList<Intersection>());
 	}
 	
+	/**
+	 * Appends a found path to the list of known paths.
+	 * @param path
+	 */
 	public void yield(LinkedList<Intersection> path)
 	{
-		System.out.println("Path found!");
+		m_pathsFound.add(path);
 	}
 	
+	/**
+	 * Performs depth first search on the graph until no more roads can be taken
+	 * with the distance remaining.
+	 * 
+	 * @param distanceLeft - the distance this road can take.
+	 * @param intersection - the current intersection
+	 * @param pathSoFar - all of the points on the path until now.
+	 */
 	private void dfs(double distanceLeft, Intersection intersection, LinkedList<Intersection> pathSoFar)
 	{
 		pathSoFar.push(intersection);
@@ -92,8 +106,10 @@ public class RoadDFS
 		m_states.put(intersection, NODESTATE.explored);
 	}
 	
-	public LinkedList<Intersection> getNext()
+
+	@Override
+	public Iterator<LinkedList<Intersection>> iterator() 
 	{
-		return null;
+		return m_pathsFound.iterator();
 	}
 }
