@@ -1,0 +1,16 @@
+inference
+=========
+
+- hard stop
+- good stop
+- fast accelleration vs slow
+- fast turns
+- time of day for accidents?
+- distance driven
+- average MPH over limit
+- driver profiles? (different drivers)
+- way under speed limit
+- slowing down then speeding up (distracted)
+- cruise control
+- types of roads driven on
+- overtaking another car
