@@ -11,6 +11,7 @@ import java.awt.Dimension;
 import java.util.Date;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.TreeMap;
 
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
@@ -91,6 +92,10 @@ public class OutputManager extends JPanel implements LogHandler
 	    ITrace2D trace = new Trace2DSimple(); 
 	    // Add the trace to the chart. This has to be done before adding points (deadlock prevention): 
 	    chart.addTrace(trace);    
+	    
+	    // Make sure our map is *sorted* so the data doens't come out wonky.
+	    data = new TreeMap<>(data);
+	    
 	    // Add all points, as it is static: 
 	    for(Entry<Date, Double> ent : data.entrySet())
 	    {
