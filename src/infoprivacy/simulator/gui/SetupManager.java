@@ -20,6 +20,9 @@ import javax.swing.JPanel;
  */
 public class SetupManager extends JPanel 
 {
+
+	private static final long serialVersionUID = 8579533159259385634L;
+
 	public SetupManager()
 	{
 		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));

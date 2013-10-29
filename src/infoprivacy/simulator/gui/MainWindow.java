@@ -6,8 +6,17 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
+/**
+ * The main window of the application.
+ * 
+ * @author Joseph Lewis <joehms22@gmail.com>
+ *
+ */
 public class MainWindow extends JFrame 
 {
+
+	private static final long serialVersionUID = -5327894513395293006L;
+
 	public MainWindow()
 	{
 		JTabbedPane m_tabs = new JTabbedPane();
