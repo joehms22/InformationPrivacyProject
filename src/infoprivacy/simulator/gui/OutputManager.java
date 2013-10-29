@@ -7,6 +7,8 @@ import infoprivacy.simulator.LogHandler;
 import infoprivacy.simulator.Reporter;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.util.Date;
 import java.util.Map;
@@ -14,6 +16,7 @@ import java.util.Map.Entry;
 import java.util.TreeMap;
 
 import javax.swing.BoxLayout;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -37,7 +40,7 @@ public class OutputManager extends JPanel implements LogHandler
 	private final JPanel m_innerPanel = new JPanel();
 
 	
-	private static final Dimension CHART_DIMENSION = new Dimension(300,300);
+	private static final Dimension CHART_DIMENSION = new Dimension(600,300);
 	private static OutputManager INSTANCE;
 
 	
@@ -61,6 +64,8 @@ public class OutputManager extends JPanel implements LogHandler
 	private OutputManager()
 	{
 		setLayout(new BorderLayout());
+		
+		m_innerPanel.setBackground(Color.WHITE);
 
 		m_innerPanel.setLayout(new BoxLayout(m_innerPanel, BoxLayout.PAGE_AXIS));
 		add(new JScrollPane(m_innerPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER), BorderLayout.CENTER);
@@ -68,19 +73,6 @@ public class OutputManager extends JPanel implements LogHandler
 		
 		// Set this up as a Reporter Handler
 		Reporter.getInstance().onLog(this);
-		
-	/**	for(int i = 0; i < 5; i++)
-		{
-			Reporter.getInstance().logValue("Hello"+ i, i);
-			
-			HashMap<Date, Float> values = new HashMap<Date, Float>();
-			for(int j = 0; j < 100; j++)
-			{
-				values.put(new Date(j * i), (float) j * i);
-			}
-			Reporter.getInstance().logEvent("LogEvt: " + i, values);
-
-		}**/
 	}
 
 	@Override
@@ -103,20 +95,26 @@ public class OutputManager extends JPanel implements LogHandler
 	    }
 	    
 	    trace.setName(eventName);
+	    trace.setPhysicalUnits("Seconds", "MPH");
 	   
 	    chart.setSize(CHART_DIMENSION);
 	    chart.setMaximumSize(CHART_DIMENSION);
 	    chart.setPreferredSize(CHART_DIMENSION);
 	    chart.setMinimumSize(CHART_DIMENSION);
-	    m_innerPanel.add(chart);
-
-	    m_innerPanel.add(new JSeparator());
+	    addNewComponent(chart);
 	}
 
 	@Override
 	public void handleLogValue(String valueName, double value) 
 	{
-		m_innerPanel.add(new JLabel("<html><h2>" + valueName + ": <span color='blue'>"+value+"</span></h2></html>"));
+		addNewComponent(new JLabel("<html><h2>" + valueName + ": <span color='blue'>"+value+"</span></h2></html>"));
+	}
+	
+	private void addNewComponent(JComponent cmp)
+	{
+		cmp.setAlignmentX( Component.LEFT_ALIGNMENT );//0.0
+
+		m_innerPanel.add(cmp);
 		m_innerPanel.add(new JSeparator());
 	}
 	
