@@ -17,10 +17,10 @@ public class RouteData
 	{
 		float total = 0;
 		
-		for(Entry<Integer, Entry<Float, Float>> ent : m_routeData)
+		for(Entry<Integer, Entry<Float, Float>> ent : m_routeData.entrySet())
 		{
 			// convert ms to hours
-			total += ent.getKey() * (ent.getValue() / (1000 * 60 * 60));
+			total += ent.getKey() * (ent.getValue().getValue() / (1000 * 60 * 60));
 		}
 		
 		return total;
