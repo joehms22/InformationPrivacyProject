@@ -5,6 +5,8 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  * The main window of the application.
@@ -19,6 +21,14 @@ public class MainWindow extends JFrame
 
 	public MainWindow()
 	{
+		  try {
+			UIManager.setLookAndFeel(
+			            UIManager.getSystemLookAndFeelClassName());
+		} catch (ClassNotFoundException | InstantiationException
+				| IllegalAccessException | UnsupportedLookAndFeelException e) {
+			e.printStackTrace();
+		}
+		
 		JTabbedPane m_tabs = new JTabbedPane();
 		m_tabs.addTab("Setup", new JScrollPane(new SetupManager(),
 				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,

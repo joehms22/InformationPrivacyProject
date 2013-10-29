@@ -101,7 +101,12 @@ public class OutputManager extends JPanel implements LogHandler
 	    chart.setMaximumSize(CHART_DIMENSION);
 	    chart.setPreferredSize(CHART_DIMENSION);
 	    chart.setMinimumSize(CHART_DIMENSION);
-	    addNewComponent(chart);
+	    
+	    JPanel container = new JPanel(new BorderLayout());
+	    container.setBackground(Color.WHITE);
+	    container.add(new JLabel("<html><h2>" + eventName + "</h2></html>"), BorderLayout.NORTH);
+	    container.add(chart, BorderLayout.CENTER);
+	    addNewComponent(container);
 	}
 
 	@Override
