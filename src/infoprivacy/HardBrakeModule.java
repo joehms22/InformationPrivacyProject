@@ -6,7 +6,7 @@ public class HardBrakeModule {
 	private static double speedThresh;
 	private static double decelThresh;
 	
-	public HardBrakeModule(){
+	public static void initialize(){
 		lastSpeed = 0;
 	}
 	

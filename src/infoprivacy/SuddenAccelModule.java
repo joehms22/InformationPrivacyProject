@@ -6,7 +6,7 @@ public class SuddenAccelModule {
 	private static double speedThresh;
 	private static double accelThresh;
 	
-	public SuddenAccelModule(){
+	public static void initialize(){
 		lastSpeed = 0;
 	}
 	
