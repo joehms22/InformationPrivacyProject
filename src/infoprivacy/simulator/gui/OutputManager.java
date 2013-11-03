@@ -112,7 +112,7 @@ public class OutputManager extends JPanel implements LogHandler
 	@Override
 	public void handleLogValue(String valueName, double value) 
 	{
-		addNewComponent(new JLabel("<html><h2>" + valueName + ": <span color='blue'>"+value+"</span></h2></html>"));
+		addNewComponent(new JLabel(String.format("<html><h2>%s: <span color='blue'>%.3f</span></h2></html>", valueName, value)));
 	}
 	
 	private void addNewComponent(JComponent cmp)

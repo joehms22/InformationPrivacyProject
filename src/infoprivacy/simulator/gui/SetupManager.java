@@ -3,12 +3,14 @@ package infoprivacy.simulator.gui;
 import infoprivacy.simulator.Processor;
 import infoprivacy.simulator.ProcessorSupervisor;
 
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -27,6 +29,7 @@ public class SetupManager extends JPanel
 	{
 		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		
+		add(new JLabel("<html><h1>Data Generators</h1></html>"));
 		// Add buttons/forms for each input source
 		JButton fakeDataGenerator = new JButton("Generate Bad Random Route Data");
 		add(fakeDataGenerator);
@@ -42,17 +45,24 @@ public class SetupManager extends JPanel
 					if(Math.random() < .33)
 					{
 						lastValue -= 5;
+						if(lastValue < 0)
+						{
+							lastValue = 0;
+						}
 						ProcessorSupervisor.getInstance().process(d, lastValue);
 						continue;
 					}
-					if(Math.random() > .66)
+					if(Math.random() > .33)
 					{
-						lastValue += 5;
+						lastValue += 10;
 						ProcessorSupervisor.getInstance().process(d, lastValue);
 						continue;
 					}
 					ProcessorSupervisor.getInstance().process(d, lastValue);
 				}
+				
+				ProcessorSupervisor.getInstance().process(new Date(), -1);
+
 			}
 			
 		});
@@ -68,10 +78,17 @@ public class SetupManager extends JPanel
 		});
 		
 		// Add enable/disable buttons for each processor
-		add(new JLabel("<html><h1>Processor Enable/Disables</h1></html>"));
+		add(new JLabel("<html><h1>Data Processors</h1></html>"));
 		for(Processor proc : ProcessorSupervisor.getInstance().getProcessors())
 		{
 			add(new ProcessorPanel(proc));
 		}
+	}
+	
+	public JComponent add(JComponent cmp)
+	{
+		cmp.setAlignmentX( Component.LEFT_ALIGNMENT );
+		super.add(cmp);
+		return cmp;
 	}
 }

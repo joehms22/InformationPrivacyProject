@@ -17,7 +17,10 @@ public class DummyProcessor implements Processor {
 		// clutter up the output!
 		Reporter.getInstance().logValue("Dummy Speed", speedMPH);
 		
-		System.out.println(speedMPH);
+		if(speedMPH < 0)
+		{
+			Reporter.getInstance().logValue("Trip Completed", 0);
+		}
 	}
 
 	@Override

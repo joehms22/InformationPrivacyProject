@@ -2,6 +2,9 @@ package infoprivacy.simulator;
 
 import infoprivacy.simulator.processors.DummyGrapher;
 import infoprivacy.simulator.processors.DummyProcessor;
+import infoprivacy.simulator.processors.Over80MPHProcessor;
+import infoprivacy.simulator.processors.TotalMileage;
+import infoprivacy.simulator.processors.TripTime;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -51,9 +54,11 @@ public class ProcessorSupervisor
 	{
 		
 		// TODO Jake, add your processors here!
-		//m_processors.add(new BlahProcessor());
 		m_processors.add(new DummyProcessor());
 		m_processors.add(new DummyGrapher());
+		m_processors.add(new Over80MPHProcessor());
+		m_processors.add(new TotalMileage());
+		m_processors.add(new TripTime());
 	}
 	
 	/**
