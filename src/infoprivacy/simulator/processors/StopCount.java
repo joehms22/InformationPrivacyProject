@@ -9,29 +9,22 @@ public class StopCount implements Processor
 {
 	boolean lastWasStop = false;
 	int stopCount = 0;
+	double lastSpeed = 10;
 	
 	@Override
 	public void process(Date time, double speedMPH) {
-		if(lastWasStop && speedMPH < .3 && speedMPH >= 0)
-		{
-			return;
-		}
-		
-		if(lastWasStop && speedMPH >= .3)
-		{
-			lastWasStop = false;
-		}
-		
-		if(speedMPH < .3 && speedMPH >= 0)
-		{
-			lastWasStop = true;
-			stopCount++;
-		}
 		
 		if(speedMPH < 0)
 		{
 			Reporter.getInstance().logValue("Number of Stops", stopCount);
 		}
+		
+		if(lastSpeed != 0 && speedMPH == 0)
+		{
+			stopCount++;
+		}
+		
+		lastSpeed = speedMPH;		
 	}
 
 	@Override
