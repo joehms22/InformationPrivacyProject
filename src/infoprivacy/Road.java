@@ -152,9 +152,6 @@ public class Road
 		case RESIDENTIAL:
 			speedLimit = 25;
 			break;
-		case ROADTYPE:
-			speedLimit = -1;
-			break;
 		case SECONDARY:
 			speedLimit = 40;
 			break;
