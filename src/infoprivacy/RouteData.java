@@ -1,10 +1,11 @@
 package infoprivacy;
 
+import infoprivacy.simulator.ProcessorSupervisor;
+
+import java.io.IOException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Map.Entry;
 import java.util.TreeMap;
-import infoprivacy.simulator.*;
 	
 	public class RouteData 
 	{
@@ -23,7 +24,7 @@ import infoprivacy.simulator.*;
 			for(int i = 0; i < nodes.length - 1; i++)
 			{
 				Road thisRoad = Road.getInstance(nodes[i], nodes[i+1]);				
-				time = thisRoad.getLength() * (float)(60*60*1000) / (float)thisRoad.getSpeedLimit() ;
+				time = thisRoad.getLength() * (60*60*1000) / thisRoad.getSpeedLimit() ;
 				m_routeData.put(time, thisRoad.getSpeedLimit());
 			}
 			
@@ -32,11 +33,19 @@ import infoprivacy.simulator.*;
 		public RouteData(Path filePath)
 		{
 			
-			for(String[] line : new DelimitedFileReader(filePath, ",", 1))
-			{
-				int time = Integer.parseInt(line[0]);
-				float mph = Float.parseFloat(line[2]);
-				ProcessorSupervisor.getInstance().process(time, mph);
+			try {
+				for(String[] line : new DelimitedFileReader(filePath, ",", 1))
+				{
+					if(line.length <= 3)
+					{
+						continue;
+					}
+					int time = Integer.parseInt(line[0].trim());
+					float mph = Float.parseFloat(line[2].trim());
+					ProcessorSupervisor.getInstance().process(time, mph);
+				}
+			} catch (NumberFormatException | IOException e) {
+				e.printStackTrace();
 			}
 			ProcessorSupervisor.getInstance().process(0, -1);
 
@@ -50,7 +59,7 @@ import infoprivacy.simulator.*;
 			for(Entry<Float, Integer> ent : m_routeData.entrySet())
 			{
 				// convert ms to hours
-				total += ent.getKey() * (float)(ent.getValue() / (float)(1000 * 60 * 60));
+				total += ent.getKey() * (ent.getValue() / (float)(1000 * 60 * 60));
 			}
 			
 			return total;

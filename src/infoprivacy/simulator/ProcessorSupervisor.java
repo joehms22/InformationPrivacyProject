@@ -4,6 +4,7 @@ import infoprivacy.simulator.processors.DummyGrapher;
 import infoprivacy.simulator.processors.DummyProcessor;
 import infoprivacy.simulator.processors.Over80MPHProcessor;
 import infoprivacy.simulator.processors.ReportedPointCounter;
+import infoprivacy.simulator.processors.StopCount;
 import infoprivacy.simulator.processors.TotalMileage;
 import infoprivacy.simulator.processors.TripTime;
 
@@ -60,6 +61,7 @@ public class ProcessorSupervisor
 		m_processors.add(new Over80MPHProcessor());
 		m_processors.add(new TotalMileage());
 		m_processors.add(new TripTime());
+		m_processors.add(new StopCount());
 		
 		// This is the last one
 		m_processors.addLast(new ReportedPointCounter());
@@ -102,9 +104,22 @@ public class ProcessorSupervisor
 		}
 	}
 	
+
 	/**
 	 * Processes a point of data in the stream by handing it off to each 
-	 * processor. 
+	 * processor. When you're out of data, send a speed of -1.
+	 * 
+	 * @param time - the time the data occurs at.
+	 * @param speedMPH - the speed the vehicle was going at the time.
+	 */
+	public void process(long time, double speedMPH)
+	{
+		process(new Date(time), speedMPH);
+	}
+	
+	/**
+	 * Processes a point of data in the stream by handing it off to each 
+	 * processor. When you're out of data, send a speed of -1.
 	 * 
 	 * @param time - the time the data occurs at.
 	 * @param speedMPH - the speed the vehicle was going at the time.

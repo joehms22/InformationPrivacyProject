@@ -1,11 +1,13 @@
 package infoprivacy.simulator.gui;
 
+import infoprivacy.RouteData;
 import infoprivacy.simulator.Processor;
 import infoprivacy.simulator.ProcessorSupervisor;
 
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.nio.file.Path;
 import java.util.Date;
 
 import javax.swing.BoxLayout;
@@ -13,6 +15,10 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
+import net.josephlewis.java.gui.Dialogs;
 
 /**
  * This class handles the tab for the whole project setup.
@@ -30,7 +36,30 @@ public class SetupManager extends JPanel
 		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		
 		add(new JLabel("<html><h1>Data Generators</h1></html>"));
+		
+		
+		
 		// Add buttons/forms for each input source
+		JButton andyDataGenerator = new JButton("Use a saved Trip Data File");
+		andyDataGenerator.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) 
+			{
+				FileFilter filter = new FileNameExtensionFilter("Trip Data File", "dat");
+				Path output = Dialogs.showFileOpenDialog(new FileFilter[]{filter}, false);
+				
+				if(output != null)
+				{
+					new RouteData(output);
+				}
+			}
+			
+		});
+		
+		add(andyDataGenerator);
+		
+		
 		JButton fakeDataGenerator = new JButton("Generate Bad Random Route Data");
 		add(fakeDataGenerator);
 		fakeDataGenerator.addActionListener(new ActionListener(){
