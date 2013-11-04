@@ -3,6 +3,7 @@ package infoprivacy.simulator;
 import infoprivacy.simulator.processors.DummyGrapher;
 import infoprivacy.simulator.processors.DummyProcessor;
 import infoprivacy.simulator.processors.Over80MPHProcessor;
+import infoprivacy.simulator.processors.ReportedPointCounter;
 import infoprivacy.simulator.processors.TotalMileage;
 import infoprivacy.simulator.processors.TripTime;
 
@@ -59,6 +60,9 @@ public class ProcessorSupervisor
 		m_processors.add(new Over80MPHProcessor());
 		m_processors.add(new TotalMileage());
 		m_processors.add(new TripTime());
+		
+		// This is the last one
+		m_processors.addLast(new ReportedPointCounter());
 	}
 	
 	/**
