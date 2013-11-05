@@ -10,17 +10,27 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Date;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
+import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
+import javax.swing.JToolBar;
+
+import net.josephlewis.java.gui.Dialogs;
 
 /**
  * Listens to the Reporter and displays the output in a nice GUI.
@@ -38,6 +48,7 @@ public class OutputManager extends JPanel implements LogHandler
 	// This is the panel where everything is going to be added, it is within
 	// a jscrollpane so we don't overflow the main window.
 	private final JPanel m_innerPanel = new JPanel();
+	private final JToolBar m_buttonPanel = new JToolBar();
 
 	
 	private static final Dimension CHART_DIMENSION = new Dimension(600,300);
@@ -58,6 +69,20 @@ public class OutputManager extends JPanel implements LogHandler
 		return INSTANCE;
 	}
 	
+	 public static BufferedImage getScreenShot(
+			    Component component) {
+
+			    BufferedImage image = new BufferedImage(
+			      component.getWidth(),
+			      component.getHeight(),
+			      BufferedImage.TYPE_INT_RGB
+			      );
+			    // call the Component's paint method, using
+			    // the Graphics object of the image.
+			    component.paint( image.getGraphics() );
+			    return image;
+			  }
+	
 	/**
 	 * The OutputManager logs data in a human-readable format.
 	 */
@@ -70,6 +95,43 @@ public class OutputManager extends JPanel implements LogHandler
 		m_innerPanel.setLayout(new BoxLayout(m_innerPanel, BoxLayout.PAGE_AXIS));
 		add(new JScrollPane(m_innerPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER), BorderLayout.CENTER);
 		
+		
+		// Add the toolbar buttons
+		JButton clearButton = new JButton("Clear");
+		m_buttonPanel.add(clearButton);
+		clearButton.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				clearOutput();
+			}
+			
+		});
+		
+		JButton printButton = new JButton("Save Results");
+		m_buttonPanel.add(printButton);
+		printButton.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String p = Dialogs.showSaveDialog(new String[]{"Image","png"}, "", false, true, false);
+				if(p != null)
+				{
+					try {
+						BufferedImage image = getScreenShot(m_innerPanel);
+						ImageIO.write(image, "png", new File(p));
+
+					} catch ( IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+			
+			}
+		});
+		
+		
+		add(m_buttonPanel, BorderLayout.NORTH);
 		
 		// Set this up as a Reporter Handler
 		Reporter.getInstance().onLog(this);
@@ -130,5 +192,6 @@ public class OutputManager extends JPanel implements LogHandler
 	public void clearOutput()
 	{
 		m_innerPanel.removeAll();
+		m_innerPanel.repaint();
 	}
 }

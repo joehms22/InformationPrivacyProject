@@ -2,8 +2,10 @@ package infoprivacy.simulator;
 
 import infoprivacy.simulator.processors.AverageSpeedModule;
 import infoprivacy.simulator.processors.HardBrakeModule;
+import infoprivacy.simulator.processors.NightDriving;
 import infoprivacy.simulator.processors.Over80MPHProcessor;
 import infoprivacy.simulator.processors.ReportedPointCounter;
+import infoprivacy.simulator.processors.SpeedBucket;
 import infoprivacy.simulator.processors.StopCount;
 import infoprivacy.simulator.processors.SuddenAccelModule;
 import infoprivacy.simulator.processors.TotalMileage;
@@ -66,6 +68,8 @@ public class ProcessorSupervisor
 		m_processors.add(new AverageSpeedModule());
 		m_processors.add(new SuddenAccelModule());
 		m_processors.add(new HardBrakeModule());
+		m_processors.add(new SpeedBucket());
+		m_processors.add(new NightDriving());
 		
 		// This is the last one
 		m_processors.addLast(new ReportedPointCounter());

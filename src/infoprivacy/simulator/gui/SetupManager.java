@@ -96,15 +96,6 @@ public class SetupManager extends JPanel
 			
 		});
 		
-		JButton clearData = new JButton("Clear Output");
-		add(clearData);
-		clearData.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				OutputManager.getInstance().clearOutput();
-			}
-		});
 		
 		// Add enable/disable buttons for each processor
 		add(new JLabel("<html><h1>Data Processors</h1></html>"));
