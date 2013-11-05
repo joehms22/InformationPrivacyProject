@@ -40,7 +40,7 @@ public class Road
 	public static final String TRUNK = "trunk";
 	public static final String TRUNK_LINK = "trunk_link";
 	
-	private final String roadType = UNKNOWN;
+	private String m_roadType = UNKNOWN;
 	
 	private final int m_fromNode;
 	private final int m_toNode;
@@ -66,13 +66,13 @@ public class Road
 	
 	public String getRoadType()
 	{
-		return roadType;
+		return m_roadType;
 	}
 	
 	@Override
 	public String toString()
 	{
-		return "[Road from=" + m_fromNode + " to=" + m_toNode + " type=" + roadType + "]";
+		return "[Road from=" + m_fromNode + " to=" + m_toNode + " type=" + m_roadType + "]";
 	}
 	
 	public void setRoadType(String roadType)
@@ -82,44 +82,98 @@ public class Road
 		switch(roadType)
 		{
 		case MOTORWAY:
-			roadType = MOTORWAY;
+			m_roadType = MOTORWAY;
 			break;
 		case MOTORWAY_LINK:
-			roadType = MOTORWAY_LINK;
+			m_roadType = MOTORWAY_LINK;
 			break;
 		case PRIMARY:
-			roadType = PRIMARY;
+			m_roadType = PRIMARY;
 			break;
 		case PRIMARY_LINK:
-			roadType = PRIMARY_LINK;
+			m_roadType = PRIMARY_LINK;
 			break;
 		case RESIDENTIAL:
-			roadType = RESIDENTIAL;
+			m_roadType = RESIDENTIAL;
 			break;
 		case ROADTYPE:
-			roadType = ROADTYPE;
+			m_roadType = ROADTYPE;
 			break;
 		case SECONDARY:
-			roadType = SECONDARY;
+			m_roadType = SECONDARY;
 			break;
 		case SECONDARY_LINK:
-			roadType = SECONDARY_LINK;
+			m_roadType = SECONDARY_LINK;
 			break;
 		case TERTIARY:
-			roadType = TERTIARY;
+			m_roadType = TERTIARY;
 			break;
 		case TERTIARY_LINK:
-			roadType = TERTIARY_LINK;
+			m_roadType = TERTIARY_LINK;
 			break;
 		case TRUNK:
-			roadType = TRUNK;
+			m_roadType = TRUNK;
 			break;
 		case TRUNK_LINK:
-			roadType = TRUNK_LINK;
+			m_roadType = TRUNK_LINK;
 			break;
 		default:
-			roadType = UNKNOWN;
+			m_roadType = UNKNOWN;
 		} 
+	}
+	
+	/**
+	Returns the expected speed limit of this road based on its road type
+	returns -1 is the road type is unknown 
+	also returns -1 if the road type is "ROADTYPE" (because I'm not sure what that means :P)
+	 * 
+	 * @return
+	 */
+	
+	//TODO verify these speed limits
+	public int getSpeedLimit()
+	{
+	
+		int speedLimit;
+		switch(this.getRoadType())
+		{
+		case MOTORWAY:
+			speedLimit = 60;
+			break;
+		case MOTORWAY_LINK:
+			speedLimit = 40;
+			break;
+		case PRIMARY:
+			speedLimit = 50;
+			break;
+		case PRIMARY_LINK:
+			speedLimit = 40;
+			break;
+		case RESIDENTIAL:
+			speedLimit = 25;
+			break;
+		case SECONDARY:
+			speedLimit = 40;
+			break;
+		case SECONDARY_LINK:
+			speedLimit = 35;
+			break;
+		case TERTIARY:
+			speedLimit = 30;
+			break;
+		case TERTIARY_LINK:
+			speedLimit = 25;
+			break;
+		case TRUNK:
+			speedLimit = 40;
+			break;
+		case TRUNK_LINK:
+			speedLimit = 35;
+			break;
+		default:
+			speedLimit = -1;
+		}
+		return speedLimit;
 	}
 
 	public void setLength(float length) {
