@@ -1,10 +1,11 @@
 package infoprivacy.simulator;
 
-import infoprivacy.simulator.processors.DummyGrapher;
-import infoprivacy.simulator.processors.DummyProcessor;
+import infoprivacy.simulator.processors.AverageSpeedModule;
+import infoprivacy.simulator.processors.HardBrakeModule;
 import infoprivacy.simulator.processors.Over80MPHProcessor;
 import infoprivacy.simulator.processors.ReportedPointCounter;
 import infoprivacy.simulator.processors.StopCount;
+import infoprivacy.simulator.processors.SuddenAccelModule;
 import infoprivacy.simulator.processors.TotalMileage;
 import infoprivacy.simulator.processors.TripTime;
 
@@ -56,12 +57,15 @@ public class ProcessorSupervisor
 	{
 		
 		// TODO Jake, add your processors here!
-		m_processors.add(new DummyProcessor());
-		m_processors.add(new DummyGrapher());
+		//m_processors.add(new DummyProcessor());
+		//m_processors.add(new DummyGrapher());
 		m_processors.add(new Over80MPHProcessor());
 		m_processors.add(new TotalMileage());
 		m_processors.add(new TripTime());
 		m_processors.add(new StopCount());
+		m_processors.add(new AverageSpeedModule());
+		m_processors.add(new SuddenAccelModule());
+		m_processors.add(new HardBrakeModule());
 		
 		// This is the last one
 		m_processors.addLast(new ReportedPointCounter());
