@@ -3,6 +3,15 @@ package infoprivacy.simulator;
 import java.util.Date;
 import java.util.Map;
 
+/**
+ * All LogHandlers get events from the processors 
+ * 
+ * @author Joseph Lewis <joehms22@gmail.com>
+ * @author Andy Brunner <andybrunner91@gmail.com>
+ * @author Jacob Bellatti <jake.bellatti@gmail.com>
+ * @license BSD 3 Clause License
+ * 
+ */
 public interface LogHandler 
 {
 	/**

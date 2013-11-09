@@ -10,8 +10,12 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 /**
- * This class creates panels that enable/disable a given processor.
+ * 
  * @author Joseph Lewis <joehms22@gmail.com>
+ * @author Andy Brunner <andybrunner91@gmail.com>
+ * @author Jacob Bellatti <jake.bellatti@gmail.com>
+ * @license BSD 3 Clause License
+ * This class handles the tab for the whole project setup.
  *
  */
 public class ProcessorPanel extends JPanel implements ChangeListener 

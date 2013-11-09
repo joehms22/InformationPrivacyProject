@@ -12,16 +12,33 @@ import javax.swing.UnsupportedLookAndFeelException;
  * The main window of the application.
  * 
  * @author Joseph Lewis <joehms22@gmail.com>
- *
+ * @author Andy Brunner <andybrunner91@gmail.com>
+ * @author Jacob Bellatti <jake.bellatti@gmail.com>
+ * @license BSD 3 Clause License
  */
-public class MainWindow extends JFrame 
+public class MainWindow extends JFrame
 {
 
 	private static final long serialVersionUID = -5327894513395293006L;
-
-	public MainWindow()
+	
+	private static MainWindow INSTANCE;
+	
+	private final JTabbedPane m_tabs;
+	
+	public static MainWindow getInstance()
 	{
-		  try {
+		if(INSTANCE == null)
+		{
+			INSTANCE = new MainWindow();
+		}
+		
+		return INSTANCE;
+	}
+
+	private MainWindow()
+	{
+		// Make us look pretty on the target platform
+		try {
 			UIManager.setLookAndFeel(
 			            UIManager.getSystemLookAndFeelClassName());
 		} catch (ClassNotFoundException | InstantiationException
@@ -29,7 +46,8 @@ public class MainWindow extends JFrame
 			e.printStackTrace();
 		}
 		
-		JTabbedPane m_tabs = new JTabbedPane();
+		m_tabs = new JTabbedPane();
+		
 		m_tabs.addTab("Setup", new JScrollPane(new SetupManager(),
 				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED));
@@ -43,8 +61,20 @@ public class MainWindow extends JFrame
 		setVisible(true);
 	}
 
+	
+	
+	/**
+	 * Switches the current tab to the results tab.
+	 */
+	public void showResults() 
+	{
+		m_tabs.setSelectedIndex(1); // change to the data tab
+	}
+	
 	public static void main(String args[])
 	{
-		new MainWindow();
+		MainWindow.getInstance();
 	}
+
+
 }

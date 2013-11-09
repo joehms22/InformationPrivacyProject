@@ -1,6 +1,7 @@
 package infoprivacy;
 
 import infoprivacy.simulator.ProcessorSupervisor;
+import infoprivacy.simulator.graph.Road;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -40,7 +41,7 @@ import java.util.TreeMap;
 					{
 						continue;
 					}
-					int time = Integer.parseInt(line[0].trim());
+					long time = Long.parseLong(line[0].trim());
 					float mph = Float.parseFloat(line[2].trim());
 					ProcessorSupervisor.getInstance().process(time, mph);
 				}

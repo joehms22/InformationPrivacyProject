@@ -1,4 +1,4 @@
-package infoprivacy;
+package infoprivacy.simulator.graph;
 
 import java.util.Iterator;
 import java.util.LinkedList;

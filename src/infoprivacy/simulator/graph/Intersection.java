@@ -1,4 +1,4 @@
-package infoprivacy;
+package infoprivacy.simulator.graph;
 
 import java.util.Collection;
 import java.util.HashMap;

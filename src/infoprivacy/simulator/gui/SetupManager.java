@@ -21,9 +21,37 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import net.josephlewis.java.gui.Dialogs;
 
 /**
- * This class handles the tab for the whole project setup.
+ * Copyright (c) 2013
  * 
  * @author Joseph Lewis <joehms22@gmail.com>
+ * @author Andy Brunner <andybrunner91@gmail.com>
+ * @author Jacob Bellatti <jake.bellatti@gmail.com>
+ * All rights reserved.
+ * 
+ * Redistribution and use in source and binary forms, with or without 
+ * modification, are permitted provided that the following conditions are met:
+ * * Redistributions of source code must retain the above copyright notice, this 
+ * list of conditions and the following disclaimer.
+ * * Redistributions in binary form must reproduce the above copyright notice, 
+ * this list of conditions and the following disclaimer in the documentation 
+ * and/or other materials provided with the distribution.
+ * * Neither the name of the University of Denver nor the names of its 
+ * contributors may be used to endorse or promote products derived from this 
+ * software without specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE 
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS 
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+ * POSSIBILITY OF SUCH DAMAGE.
+ * 
+ * This class handles the tab for the whole project setup.
  *
  */
 public class SetupManager extends JPanel 
@@ -35,7 +63,20 @@ public class SetupManager extends JPanel
 	{
 		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		
-		add(new JLabel("<html><h1>Data Generators</h1></html>"));
+		add(new JLabel("<html><h1>Generate Data</h1></html>"));
+		JButton simulationCreator = new JButton("Create a simulation file");
+		simulationCreator.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				new SimulationCreator();
+			}
+		
+		});
+		
+		add(simulationCreator);
+		
+		add(new JLabel("<html><h1>Data Sources</h1></html>"));
 		
 		
 		

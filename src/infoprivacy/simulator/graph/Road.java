@@ -1,4 +1,4 @@
-package infoprivacy;
+package infoprivacy.simulator.graph;
 
 /**
  * Implements a road type.

@@ -1,4 +1,6 @@
-package infoprivacy;
+package infoprivacy.simulator.graph;
+
+import infoprivacy.DelimitedFileReader;
 
 import java.io.IOException;
 import java.nio.file.Path;

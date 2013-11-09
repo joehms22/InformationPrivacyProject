@@ -1,5 +1,6 @@
 package infoprivacy.simulator;
 
+import infoprivacy.simulator.gui.MainWindow;
 import infoprivacy.simulator.processors.AverageSpeedModule;
 import infoprivacy.simulator.processors.HardBrakeModule;
 import infoprivacy.simulator.processors.NightDriving;
@@ -71,7 +72,7 @@ public class ProcessorSupervisor
 		m_processors.add(new SpeedBucket());
 		m_processors.add(new NightDriving());
 		
-		// This is the last one
+		// This is the last one that manages data
 		m_processors.addLast(new ReportedPointCounter());
 	}
 	
@@ -142,6 +143,12 @@ public class ProcessorSupervisor
 			{
 				proc.process(time, speedMPH);
 			}
+		}
+		
+		// if we are done processing show the user the results
+		if(speedMPH < 0)
+		{
+			MainWindow.getInstance().showResults();
 		}
 	}
 }
