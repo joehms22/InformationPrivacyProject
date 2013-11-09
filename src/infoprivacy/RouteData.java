@@ -16,7 +16,6 @@ import java.util.TreeMap;
 		
 		//takes in the node ids (in order) of the route and populates the TreeMap with the expected speed and time
 		//to drive each edge of the route
-		//TODO make this take in a string which is the path to the file with the route data
 		public RouteData(int[] nodes)
 		{
 			

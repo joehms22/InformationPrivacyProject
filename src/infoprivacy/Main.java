@@ -15,10 +15,6 @@ public class Main {
 		System.out.println("Number of Roads: " + Road.count());
 		System.out.println("Number of Intersections: " + Intersection.count());
 		
-		//test route data
-		int[] dummy = {1,2,3,4,5};
-		RouteData theData = new RouteData(dummy);
-		System.out.println("The distance of this route is" + theData.getTripDistance());
 		
 		for(LinkedList<Intersection> path : new RoadDFS(150, Intersection.getInstance(100000)))
 		{
