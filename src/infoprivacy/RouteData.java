@@ -4,7 +4,7 @@ import infoprivacy.simulator.ProcessorSupervisor;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.sql.Date;
+import java.util.Date;
 import java.util.TreeMap;
 
 /**
