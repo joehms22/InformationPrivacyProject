@@ -6,6 +6,11 @@ import infoprivacy.simulator.Reporter;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * Calculates the average speed for the drive.
+ * @author Joseph Lewis <joehms22@gmail.com>
+ * @license BSD 3 Clause License
+ */
 public class AverageSpeedModule implements Processor
 {
 

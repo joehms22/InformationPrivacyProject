@@ -9,7 +9,7 @@ import java.util.Map;
  * see.
  * 
  * @author Joseph Lewis <joehms22@gmail.com>
- *
+ * @license BSD 3 Clause License
  */
 public class Reporter 
 {

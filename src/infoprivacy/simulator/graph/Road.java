@@ -4,7 +4,7 @@ package infoprivacy.simulator.graph;
  * Implements a road type.
  * 
  * @author Joseph Lewis <joehms22@gmail.com>
- *
+ * @license BSD 3 Clause License
  */
 public class Road
 {

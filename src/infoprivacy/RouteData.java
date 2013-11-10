@@ -1,70 +1,53 @@
 package infoprivacy;
 
 import infoprivacy.simulator.ProcessorSupervisor;
-import infoprivacy.simulator.graph.Road;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.Map.Entry;
+import java.sql.Date;
 import java.util.TreeMap;
-	
-	public class RouteData 
-	{
-		// The value (the Integer) is speed in mph and the key (the float) is amount of time (in ms) that you
-		//were going that speed
-		
-		private final TreeMap<Float, Integer> m_routeData = new TreeMap<>();
-		
-		//takes in the node ids (in order) of the route and populates the TreeMap with the expected speed and time
-		//to drive each edge of the route
-		//TODO make this take in a string which is the path to the file with the route data
-		public RouteData(int[] nodes)
-		{
-			
-			float time; 
-			for(int i = 0; i < nodes.length - 1; i++)
-			{
-				Road thisRoad = Road.getInstance(nodes[i], nodes[i+1]);				
-				time = thisRoad.getLength() * (60*60*1000) / thisRoad.getSpeedLimit() ;
-				m_routeData.put(time, thisRoad.getSpeedLimit());
-			}
-			
-		}
-		
-		public RouteData(Path filePath)
-		{
-			
-			try {
-				for(String[] line : new DelimitedFileReader(filePath, ",", 1))
-				{
-					if(line.length <= 3)
-					{
-						continue;
-					}
-					long time = Long.parseLong(line[0].trim());
-					float mph = Float.parseFloat(line[2].trim());
-					ProcessorSupervisor.getInstance().process(time, mph);
-				}
-			} catch (NumberFormatException | IOException e) {
-				e.printStackTrace();
-			}
-			ProcessorSupervisor.getInstance().process(0, -1);
 
-		}
-		
-		//TODO Fix Roundoff error in this function
-		public float getTripDistance()
-		{
-			float total = 0;
-			
-			for(Entry<Float, Integer> ent : m_routeData.entrySet())
+/**
+ * Reads/creates route data from the .dat files we were given.
+ * 
+ * @author Joseph Lewis <joehms22@gmail.com>
+ * @author Andy Brunner <andybrunner91@gmail.com>
+ * @author Jacob Bellatti <jake.bellatti@gmail.com>
+ * @license BSD 3 Clause License
+ * @author Joseph Lewis <joehms22@gmail.com>
+ *
+ */
+public class RouteData 
+{
+	// The value (the Integer) is speed in mph and the key (the float) is amount of time (in ms) that you
+	//were going that speed
+
+	private final TreeMap<Date, Double> m_routeData = new TreeMap<>();
+
+	
+	/**
+	 * Constructs the route data and processes it.
+	 * 
+	 * @param filePath - the path to the route data file.
+	 */
+	public RouteData(Path filePath)
+	{
+
+		try {
+			for(String[] line : new DelimitedFileReader(filePath, ",", 1))
 			{
-				// convert ms to hours
-				total += ent.getKey() * (ent.getValue() / (float)(1000 * 60 * 60));
+				if(line.length <= 3)
+				{
+					continue;
+				}
+				long time = Long.parseLong(line[0].trim());
+				float mph = Float.parseFloat(line[2].trim());
+				ProcessorSupervisor.getInstance().process(time, mph);
 			}
-			
-			return total;
+		} catch (NumberFormatException | IOException e) {
+			e.printStackTrace();
 		}
-	
-	
+		ProcessorSupervisor.getInstance().process(0, -1);
+
+	}
 }

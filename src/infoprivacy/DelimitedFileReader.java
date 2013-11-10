@@ -11,6 +11,9 @@ import java.util.Iterator;
  * Reads a delimited file line by line, acting as an iterator.
  * 
  * @author Joseph Lewis <joehms22@gmail.com>
+ * @author Andy Brunner <andybrunner91@gmail.com>
+ * @author Jacob Bellatti <jake.bellatti@gmail.com>
+ * @license BSD 3 Clause License
  *
  */
 public class DelimitedFileReader implements Iterator<String[]>, Iterable<String[]>

@@ -7,7 +7,7 @@ import java.util.Date;
  * Reporter.
  * 
  * @author Joseph Lewis <joehms22@gmail.com>
- *
+ * @license BSD 3 Clause License
  */
 public interface Processor 
 {

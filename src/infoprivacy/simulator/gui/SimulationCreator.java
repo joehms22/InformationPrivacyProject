@@ -23,26 +23,36 @@ import java.util.TreeMap;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JToolBar;
 import javax.swing.SpinnerNumberModel;
 
 import net.josephlewis.java.gui.Dialogs;
 
+/**
+ * A window that allows the user to create new simulation files.
+ * 
+ * @author Joseph Lewis <joehms22@gmail.com>
+ *
+ */
 public class SimulationCreator extends JDialog
 {
-	private final TreeMap<Date, Double> m_speeds = new TreeMap<Date, Double>();
+	// the simulation data
+	private final TreeMap<Date, Double> m_speeds = new TreeMap<Date, Double>(); 
 	private  Date m_lastTime = new Date();
 	private  int m_lastSpeed = 0;
 	
 	
 	private static final long serialVersionUID = 1L;
-	private final JPanel lowerPanel = new JPanel();
-    private final Chart2D m_chart = new Chart2D();
-    private final ITrace2D m_trace = new Trace2DSimple(); 
+    private final Chart2D m_chart = new Chart2D(); // the main chart of the app
+    private final ITrace2D m_trace = new Trace2DSimple(); // the main plot
     
-	
+    // spinnerNumberModel args are <initial value, min, max, step>
+    private final JSpinner speedSpinner = new JSpinner(new SpinnerNumberModel(0, 30, 100, 1));
+    private final JSpinner timeSpinner = new JSpinner(new SpinnerNumberModel(30,1, 1000, 1));
+	private final JSpinner deltaSpinner = new JSpinner(new SpinnerNumberModel(3, 1, 30, 1));
+
+    
 	public SimulationCreator()
 	{		
 		setModal(true);
@@ -54,24 +64,14 @@ public class SimulationCreator extends JDialog
 		JToolBar buttons = new JToolBar();
 		add(buttons, BorderLayout.SOUTH);
 
-		final JSpinner speedSpinner = new JSpinner(new SpinnerNumberModel(0, //initial value
-                        0, //min
-                        100, //max
-                        1));
 		
+		// setup the main interaction area
 		buttons.add(new JLabel("Drive"));
 		buttons.add(speedSpinner);
 		buttons.add(new JLabel(" MPH for "));
-		final JSpinner timeSpinner = new JSpinner(new SpinnerNumberModel(30, //initial value
-                1, //min
-                1000, //max
-                1));
+		
 		buttons.add(timeSpinner);
 		buttons.add(new JLabel(" seconds raising/falling "));
-		final JSpinner deltaSpinner = new JSpinner(new SpinnerNumberModel(3, //initial value
-                1, //min
-                30, //max
-                1));
 		buttons.add(deltaSpinner);
 		buttons.add(new JLabel(" MPH/S to target."));		
 		
@@ -87,12 +87,11 @@ public class SimulationCreator extends JDialog
 		});
 		
 		
+		// Add the save button to the top of the panel for exporting data
 		JButton saveButton = new JButton("Save");
 		add(saveButton, BorderLayout.NORTH);
 		
-		saveButton.addActionListener(new ActionListener()
-		{
-
+		saveButton.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				saveSimulation();
@@ -100,23 +99,31 @@ public class SimulationCreator extends JDialog
 			
 		});
 		
-		addPoint(0);
+		
 
 		// submit the data as the window closes
 		addWindowListener(new WindowAdapter(){
-
 			@Override
 			public void windowClosing(WindowEvent arg0) {
 				runSimulation();
 			}
 		});
 		
+		
 		setSize(800, 600);
 		setVisible(true);
 		
-		
+		// add the initial point where the trip begins.
+		addPoint(0);
 	}
 	
+	/**
+	 * Generates the driving needed to get to the given speed from the last one
+	 * 
+	 * @param speed - the speed to get to
+	 * @param time - the time to maintain that speed
+	 * @param delta - the change in speeds we can use to get there.
+	 */
 	private void generateData(int speed, int time, int delta) 
 	{
 		if(speed > m_lastSpeed)
@@ -134,6 +141,7 @@ public class SimulationCreator extends JDialog
 			}
 		}
 		
+		// add the maintain speed data
 		for(int i = 0; i < time; i++)
 		{
 			addPoint(speed);
@@ -142,7 +150,10 @@ public class SimulationCreator extends JDialog
 		updateGraph();
 	}
 
-	
+	/**
+	 * Adds a point of data one second from the last one.
+	 * @param speed - the speed the driver is going at the given time.
+	 */
 	public void addPoint(int speed)
 	{
 		m_lastTime = new Date(m_lastTime.getTime() + 1);
@@ -151,6 +162,9 @@ public class SimulationCreator extends JDialog
 		m_speeds.put(m_lastTime, (double)speed);
 	}
 	
+	/**
+	 * Displays all of the drive so far on the graph.
+	 */
 	public void updateGraph()
 	{	    
 		m_trace.removeAllPoints();
@@ -163,6 +177,9 @@ public class SimulationCreator extends JDialog
 	    m_trace.setPhysicalUnits("Seconds", "MPH");
 	}
 	
+	/**
+	 * Prompts the user to save the simulation.
+	 */
 	public void saveSimulation()
 	{
 		String savepath = Dialogs.showSaveDialog(new String[]{"Simulation File",".dat"}, "", false, true, false);

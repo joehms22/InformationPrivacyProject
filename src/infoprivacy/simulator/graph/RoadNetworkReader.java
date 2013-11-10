@@ -6,6 +6,12 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+/**
+ * Reads a RoadNetwork file and parses its roads and intersections out.
+ * 
+ * @author Joseph Lewis <joehms22@gmail.com>
+ * @license BSD 3 Clause License
+ */
 public class RoadNetworkReader
 {
 	private static final String LINE_DELIMITER = " ";

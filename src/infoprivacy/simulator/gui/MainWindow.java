@@ -25,6 +25,11 @@ public class MainWindow extends JFrame
 	
 	private final JTabbedPane m_tabs;
 	
+	/**
+	 * We use a singleton because there is only one main window per app.
+	 * 
+	 * @return - the main window instance.
+	 */
 	public static MainWindow getInstance()
 	{
 		if(INSTANCE == null)
@@ -71,6 +76,10 @@ public class MainWindow extends JFrame
 		m_tabs.setSelectedIndex(1); // change to the data tab
 	}
 	
+	/**
+	 * The main for the whole program resides here.
+	 * @param args
+	 */
 	public static void main(String args[])
 	{
 		MainWindow.getInstance();

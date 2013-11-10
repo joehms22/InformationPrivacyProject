@@ -6,6 +6,11 @@ import infoprivacy.simulator.Reporter;
 import java.util.Date;
 import java.util.TreeMap;
 
+/**
+ * Shows driving habits above 80MPH
+ * @author Joseph Lewis <joehms22@gmail.com>
+ * @license BSD 3 Clause License
+ */
 public class Over80MPHProcessor implements Processor
 {
 	private final TreeMap<Date, Double> m_recorder = new TreeMap<>();

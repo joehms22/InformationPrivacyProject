@@ -10,7 +10,7 @@ import java.util.Date;
  * based on the season etc, but this works for now.
  * 
  * @author Joseph Lewis <joehms22@gmail.com>
- *
+ * @license BSD 3 Clause License
  */
 public class NightDriving implements Processor {
 

@@ -5,6 +5,11 @@ import infoprivacy.simulator.Reporter;
 
 import java.util.Date;
 
+/**
+ * Calculates the total time the trip took.
+ * @author Joseph Lewis <joehms22@gmail.com>
+ * @license BSD 3 Clause License
+ */
 public class TripTime implements Processor {
 
 	private Date m_firstDate = null;

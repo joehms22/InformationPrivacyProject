@@ -8,7 +8,7 @@ import java.util.LinkedList;
  * Implements an intersection, the points at which roads are joined.
  * 
  * @author Joseph Lewis <joehms22@gmail.com>
- *
+ * @license BSD 3 Clause License
  */
 public class Intersection
 {

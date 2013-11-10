@@ -7,6 +7,12 @@ import java.util.Date;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
+/**
+ * Warns about hard brakes encountered on the drive.
+ * @author Joseph Lewis <joehms22@gmail.com>
+ * @author Jacob Bellatti <jake.bellatti@gmail.com>
+ * @license BSD 3 Clause License
+ */
 public class HardBrakeModule implements Processor
 {
 	private static double decelThresh;

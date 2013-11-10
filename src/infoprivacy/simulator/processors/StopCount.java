@@ -5,9 +5,13 @@ import infoprivacy.simulator.Reporter;
 
 import java.util.Date;
 
+/**
+ * Counts the number of stops made by this vehicle.
+ * @author Joseph Lewis <joehms22@gmail.com>
+ * @license BSD 3 Clause License
+ */
 public class StopCount implements Processor
 {
-	boolean lastWasStop = false;
 	int stopCount = 0;
 	double lastSpeed = 10;
 	
@@ -17,6 +21,7 @@ public class StopCount implements Processor
 		if(speedMPH < 0)
 		{
 			Reporter.getInstance().logValue("Number of Stops", stopCount);
+			stopCount = 0;
 		}
 		
 		if(lastSpeed != 0 && speedMPH == 0)

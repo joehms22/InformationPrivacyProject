@@ -11,7 +11,7 @@ import net.josephlewis.java.collections.DefaultMap.ValueGenerator;
  * road network.
  * 
  * @author Joseph Lewis <joehms22@gmail.com>
- *
+ * @license BSD 3 Clause License
  */
 public class RoadDFS implements Iterable<LinkedList<Intersection>>
 {
