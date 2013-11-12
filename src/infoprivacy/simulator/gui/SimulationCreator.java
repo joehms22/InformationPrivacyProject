@@ -39,7 +39,7 @@ public class SimulationCreator extends JDialog
 {
 	// the simulation data
 	private final TreeMap<Date, Double> m_speeds = new TreeMap<Date, Double>(); 
-	private  Date m_lastTime = new Date();
+	private  Date m_lastTime = new Date(0L); // this is epoch
 	private  int m_lastSpeed = 0;
 	
 	
@@ -48,9 +48,9 @@ public class SimulationCreator extends JDialog
     private final ITrace2D m_trace = new Trace2DSimple(); // the main plot
     
     // spinnerNumberModel args are <initial value, min, max, step>
-    private final JSpinner speedSpinner = new JSpinner(new SpinnerNumberModel(0, 30, 100, 1));
-    private final JSpinner timeSpinner = new JSpinner(new SpinnerNumberModel(30,1, 1000, 1));
-	private final JSpinner deltaSpinner = new JSpinner(new SpinnerNumberModel(3, 1, 30, 1));
+    private final JSpinner speedSpinner = new JSpinner(new SpinnerNumberModel(30, 0, 100, 1));
+    private final JSpinner timeSpinner = new JSpinner(new SpinnerNumberModel(30,0, 1000, 1));
+	private final JSpinner deltaSpinner = new JSpinner(new SpinnerNumberModel(3, 0, 30, 1));
 
     
 	public SimulationCreator()
