@@ -1,6 +1,5 @@
 package infoprivacy.simulator.processors;
 
-import infoprivacy.simulator.Processor;
 import infoprivacy.simulator.Reporter;
 
 import java.util.Date;
@@ -13,35 +12,26 @@ import java.util.Date;
  * @author Joseph Lewis <joehms22@gmail.com>
  *
  */
-public class TotalMileage implements Processor {
+public class TotalMileage extends SimpleProcessor {
 
-	private Date m_lastTime = null;
-	double m_milesDriven = 0.0;
-	
-	@Override
-	public void process(Date time, double speedMPH) 
-	{
-		if(speedMPH < 0)
-		{
-			Reporter.getInstance().logValue("Total Distance Driven (mi)", m_milesDriven);
-			return;
-		}
-		
-		if(m_lastTime != null)
-		{
-			long timeDelta = time.getTime() - m_lastTime.getTime();
-			
-			speedMPH /= 3600.0; // get speed per second
-			
-			m_milesDriven += speedMPH * timeDelta;
-		}
-		
-		m_lastTime = time;
+	private double m_milesDriven = 0.0;
+
+	public TotalMileage() {
+		super("Trip Mileage");
 	}
 
 	@Override
-	public String getName() {
-		return "Trip Mileage";
+	public void initPlugin() {
+		m_milesDriven = 0;
 	}
 
+	@Override
+	public void processEvent(Date time, double speedMPH){
+		m_milesDriven += (speedMPH / 3600.0) * (time.getTime() - m_lastTime.getTime());		
+	}
+
+	@Override
+	public void tripFinished() {
+		Reporter.getInstance().logValue("Total Distance Driven (mi)", m_milesDriven);
+	}
 }

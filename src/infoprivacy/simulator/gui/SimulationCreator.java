@@ -208,6 +208,9 @@ public class SimulationCreator extends JDialog
 	 * Runs the currently displayed simulation.
 	 */
 	private void runSimulation() {
+		if(m_speeds.size() == 0)
+			return;
+		
 		ProcessorSupervisor ps = ProcessorSupervisor.getInstance();
 
 		for(Entry<Date, Double> e : m_speeds.entrySet())
